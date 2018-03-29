@@ -1,0 +1,32 @@
+.login, .username {
+    float: right;
+    color: #fff;
+    margin-left: 10px;
+}
+button {
+    cursor: pointer;
+}
+.username {
+    background: transparent;
+}
+.ant-dropdown-link {
+    color: white;
+}
+.selectApp {
+    background: transparent;
+    color: #fff;
+    cursor: pointer;
+}
+.logo {
+    display: inline-block; 
+    color: #fff; 
+    font-weight: lighter;
+}
+.appsInfo {
+    display: inline-block;
+    margin-left: 6px;
+    vertical-align: top;
+}
+.notDropDown::before {
+    display: none;
+}

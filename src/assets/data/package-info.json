@@ -1,0 +1,70 @@
+{
+  "result": 0,
+  "msg": "资源包信息查询成功",
+  "packageInfo": {
+    "packageId": "310810E672D54EFA861C7725161E4584",
+    "appId": "310810E672D54EFA861C7725161E4584",
+    "versionId": "D9906B28F34B43EE922D509253F1E160",
+    "resourceVersion": "1.0.0",
+    "description": "清空数据库后测试",
+    "checkStatus": 1,
+    "resourceUrl": null,
+    "versionType": "PRO",
+    "operateTime": "2017-08-30T08:26:20.000Z",
+    "operatorInfo": {
+      "userId": "BE00B637C8C145E291AB7AFBF3AAE192",
+      "username": "yedb",
+      "name": "叶丹波"
+    },
+    "versionInfo": {
+      "versionId": "D9906B28F34B43EE922D509253F1E160",
+      "resourceVersion": "1.0.0",
+      "sysVersion": "4.4.0",
+      "appVersion": "6.0.0",
+      "resourceType": "H5",
+      "system": "Android"
+    },
+    "recordList": [
+      {
+        "recordId": "1A05AA9AF7D345C490DF0E2455D7839D",
+        "operateType": "UPLOAD_PACKAGE",
+        "operateTime": "2017-08-30T08:25:47.000Z",
+        "operatorInfo": {
+          "userId": "BE00B637C8C145E291AB7AFBF3AAE192",
+          "username": "yedb",
+          "name": "叶丹波"
+        }
+      },
+      {
+        "recordId": "A3EE418E5FA54E1D8D9D9FA5AD28FB35",
+        "operateType": "PUBLISH_TO_EXP",
+        "operateTime": "2017-08-30T08:26:01.000Z",
+        "operatorInfo": {
+          "userId": "BE00B637C8C145E291AB7AFBF3AAE192",
+          "username": "yedb",
+          "name": "叶丹波"
+        }
+      },
+      {
+        "recordId": "5DA2896F3D0D48768EE123FCD128D967",
+        "operateType": "APPROVE_PACKAGE",
+        "operateTime": "2017-08-30T08:26:14.000Z",
+        "operatorInfo": {
+          "userId": "BE00B637C8C145E291AB7AFBF3AAE192",
+          "username": "yedb",
+          "name": "叶丹波"
+        }
+      },
+      {
+        "recordId": "F7E103BDE54C45D48AE2C62B9385737E",
+        "operateType": "PUBLISH_TO_PRO",
+        "operateTime": "2017-08-30T08:26:20.000Z",
+        "operatorInfo": {
+          "userId": "BE00B637C8C145E291AB7AFBF3AAE192",
+          "username": "yedb",
+          "name": "叶丹波"
+        }
+      }
+    ]
+  }
+}

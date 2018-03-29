@@ -1,0 +1,26 @@
+{
+  "result": 0,
+  "msg": "资源包列表查询成功",
+  "packageList": [
+    {
+      "packageId": "3DFDC1B81AA7406CAE5A4629E8600D01",
+      "appId": "3DFDC1B81AA7406CAE5A4629E8600D01",
+      "versionId": "FA57164FAD2B4EE48EF32134CADFD3B6",
+      "resourceVersion": "1.1.0-beta.1",
+      "description": "flowpay.zip",
+      "checkStatus": 0,
+      "resourceUrl": null,
+      "versionType": "EXP",
+      "operateTime": "2017-08-30T08:47:38.000Z",
+      "operatorInfo": {
+        "userId": "5C49D1FBEFB74DA0B70D903D82685C8E",
+        "username": "zhangzhp1",
+        "name": "张志鹏"
+      }
+    }
+  ],
+  "itemsPerPage": 10,
+  "currentPage": 1,
+  "totalItems": 1,
+  "totalPages": 1
+}

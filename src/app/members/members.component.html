@@ -1,0 +1,203 @@
+<div class="mem-container" style="overflow:auto;padding:10px;">
+    <nz-card class="mem-card" style="" *ngIf="roleId===1">
+        <ng-template #title>
+            <strong>{{roleGroup[PAdmin-1]}}</strong>
+        </ng-template>
+        <ng-template #extra>
+            <button nz-button [nzType]="'primary'" style="position:relative;top:-4px" (click)="showChangeModal(contentAdd,footerChange)">
+                        <span>更换</span>
+                    </button>
+        </ng-template>
+        <ng-template #body>
+            <div nz-row [nzGutter]="8">
+                <div *ngIf="!Pnull">
+                    <div nz-col [nzSpan]="8">
+                        <nz-card>
+                            <ng-template #title>
+                                <!-- <ng-template #extra>
+                                    <button nz-button [nzType]="'primary'" style="position:relative;top:-4px">
+                                        <span>更换</span>
+                                    </button>
+                                </ng-template> -->
+                                {{PadminUser.userInfo.name}}
+                            </ng-template>
+                            <ng-template #body>
+                                <div nz-row [nzType]="'flex'" [nzAlign]="'middle'">
+                                    <img class="avatar" nz-col [nzSpan]="8" src="../../assets/avatar/{{PadminUser.userInfo.avatarId}}.jpg">
+                                    <div nz-col class="user-msg" [nzSpan]="16">
+                                        <span>{{PadminUser.departmentInfo}}</span>
+                                        <span>{{PadminUser.userInfo.account}}</span>
+                                    </div>
+                                </div>
+                            </ng-template>
+                        </nz-card>
+                    </div>
+                </div>
+            </div>
+        </ng-template>
+    </nz-card>
+    <nz-card class="mem-card" style="">
+        <ng-template #title>
+            <strong>{{roleGroup[Pdevelop-1]}}</strong>
+        </ng-template>
+        <ng-template #extra>
+            <div style="position:relative;top:-4px">
+                <span style="margin-right:10px;">还可添加 
+            <strong>{{Maxdev-developerList.length}}</strong> 人</span>
+                <button nz-button [nzType]="'primary'" (click)="showAddModal(Pdevelop,contentAdd,footerAdd)" [disabled]="Maxdev<=developerList.length">
+                <span>添加</span>
+            </button>
+            </div>
+        </ng-template>
+        <ng-template #body>
+            <nz-alert *ngIf="deveLen===0" [nzType]="'warning'" [nzMessage]="'暂未有'+roleGroup[Pdevelop-1]+'，还可添加'+Maxdev+'人'"
+                style="text-align:center;"></nz-alert>
+            <div nz-row [nzGutter]="8">
+                <div *ngFor="let member of developerList">
+                    <div nz-col [nzXl]="6" [nzLg]="8" [nzMd]="12" [nzSm]="12" style="margin-bottom:20px">
+                        <nz-card>
+                            <ng-template #title>
+                                <div [ngClass]="{'user-invalid':member.status==2}">{{member.userInfo.name}}</div>
+                            </ng-template>
+                            <ng-template #extra>
+                                <nz-switch [(ngModel)]="member.switch" style="position:relative;top:-4px" (click)="sendStatus(member)">
+                                    <span checked>启用</span>
+                                    <span unchecked>停用</span>
+                                </nz-switch>
+                                <button nz-button [nzType]="'danger'" style="position:relative;top:-4px" (click)="showDelModal(member,contentInfo,footerDel)">
+                                        <span>删除</span>
+                                    </button>
+                            </ng-template>
+                            <ng-template #body>
+                                <div nz-row [nzType]="'flex'" [nzAlign]="'middle'" [ngClass]="{'user-invalid':member.status==2}">
+                                    <img class="avatar" nz-col [nzSpan]="8" src="../../assets/avatar/{{member.userInfo.avatarId}}.jpg">
+                                    <div nz-col class="user-msg" [nzSpan]="16">
+                                        <span>{{member.departmentInfo}}</span>
+                                        <span>{{member.userInfo.account}}</span>
+                                    </div>
+                                </div>
+                            </ng-template>
+                        </nz-card>
+                    </div>
+                </div>
+            </div>
+        </ng-template>
+    </nz-card>
+    <nz-card class="mem-card" style="">
+        <ng-template #title>
+            <strong>{{roleGroup[PExperien-1]}}</strong>
+        </ng-template>
+        <ng-template #extra>
+            <div style="position:relative;top:-4px">
+                <span style="margin-right:10px;">还可添加 
+            <strong>{{Maxexp-experiencerList.length}}</strong> 人</span>
+                <button nz-button [nzType]="'primary'" (click)="showAddModal(PExperien,contentAdd,footerAdd)" [disabled]="Maxexp<=experiencerList.length">
+                <span>添加</span>
+            </button>
+            </div>
+        </ng-template>
+        <ng-template #body>
+            <nz-alert *ngIf="expeLen===0" [nzType]="'warning'" [nzMessage]="'暂未有'+roleGroup[PExperien-1]+'，还可添加'+Maxexp+'人'"
+                style="text-align:center;"></nz-alert>
+            <div nz-row [nzGutter]="8">
+                <div *ngFor="let member of experiencerList">
+                    <div nz-col [nzXl]="6" [nzLg]="8" [nzMd]="12" [nzSm]="12" style="margin-bottom:20px">
+                        <nz-card>
+                            <ng-template #title>
+                                <div [ngClass]="{'user-invalid':member.status==2}">{{member.userInfo.name}}</div>
+                            </ng-template>
+                            <ng-template #extra>
+                                <nz-switch [(ngModel)]="member.switch" style="position:relative;top:-4px" (click)="sendStatus(member)">
+                                    <span checked>启用</span>
+                                    <span unchecked>停用</span>
+                                </nz-switch>
+                                <button nz-button [nzType]="'danger'" style="position:relative;top:-4px" (click)="showDelModal(member,contentInfo,footerDel)">
+                                        <span>删除</span>
+                                    </button>
+                            </ng-template>
+                            <ng-template #body>
+                                <div nz-row [nzType]="'flex'" [nzAlign]="'middle'" [ngClass]="{'user-invalid':member.status==2}">
+                                    <img class="avatar" nz-col [nzSpan]="8" src="../../assets/avatar/{{member.userInfo.avatarId}}.jpg">
+                                    <div nz-col class="user-msg" [nzSpan]="16">
+                                        <span>{{member.departmentInfo}}</span>
+                                        <span>{{member.userInfo.account}}</span>
+                                    </div>
+                                </div>
+                            </ng-template>
+                        </nz-card>
+                    </div>
+                </div>
+            </div>
+        </ng-template>
+    </nz-card>
+</div>
+<ng-template #footer>
+    <div>
+        <button nz-button [nzType]="'primary'" [nzSize]="'large'" (click)="handleOk($event)">
+                确定
+              </button>
+        <button nz-button [nzType]="'default'" [nzSize]="'large'" (click)="handleCancel($event)">
+                    取消
+                  </button>
+    </div>
+</ng-template>
+<ng-template #footerAdd>
+    <div>
+        <button nz-button [nzType]="'primary'" [nzSize]="'large'" (click)="handleOk($event)" [disabled]="!_isDisable">
+            添加
+          </button>
+        <button nz-button [nzType]="'default'" [nzSize]="'large'" (click)="handleCancel($event)">
+                取消
+              </button>
+    </div>
+</ng-template>
+<ng-template #footerChange>
+    <div>
+        <button nz-button [nzType]="'primary'" [nzSize]="'large'" (click)="handleOk($event)">
+                修改
+              </button>
+        <button nz-button [nzType]="'default'" [nzSize]="'large'" (click)="handleCancel($event)">
+                    取消
+                  </button>
+    </div>
+</ng-template>
+<ng-template #footerDel>
+    <div>
+        <button nz-button [nzType]="'danger'" [nzSize]="'large'" (click)="handleOk($event)">
+                    删除
+                  </button>
+        <button nz-button [nzType]="'default'" [nzSize]="'large'" (click)=handleCancel($event)>
+                    取消
+        </button>
+    </div>
+</ng-template>
+<ng-template #contentInfo>
+    <div nz-row [nzType]="'flex'" [nzAlign]="'middle'">
+        <img class="modal-avatar" nz-col [nzSpan]="16" src="../../assets/avatar/{{MemberInfo.userInfo.avatarId}}.jpg">
+        <div class="user-msg-info" nz-col [nzSpan]="16">
+            <h3>{{MemberInfo.userInfo.name}}</h3>
+            <div>{{MemberInfo.departmentInfo}}</div>
+            <div>{{MemberInfo.userInfo.account}}</div>
+            <div>{{MemberInfo.userInfo.email}}</div>
+        </div>
+        <div class="form-group">
+
+        </div>
+    </div>
+</ng-template>
+<ng-template #contentAdd>
+    <form nz-form [formGroup]="addForm" class="add-form">
+        <div nz-row>
+            <div nz-form-label nz-col [nzSpan]="6" nz-form-item-required>
+                <label>姓名</label>
+            </div>
+            <div nz-form-label nz-col [nzSpan]="14">
+                <nz-select nzPlaceHolder="请输入姓名" [nzSize]="size" [nzShowSearch]="true" formControlName="Name"
+                    (nzOpenChange)="isDisable(addForm)">
+                    <nz-option *ngFor="let option of UsersList" [nzLabel]="option.label" [nzValue]="option.value" [nzDisabled]="option.disabled">
+                    </nz-option>
+                </nz-select>
+            </div>
+        </div>
+    </form>
+</ng-template>

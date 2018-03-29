@@ -1,0 +1,31 @@
+.upload-form {
+  user-select: none;
+}
+
+.upload-file-input {
+  position: absolute;
+  top: 0;
+  right: 0;
+  bottom: 0;
+  left: 0;
+  width: 100%;
+  height: 100%;
+  opacity: 0;
+  cursor: pointer;
+}
+
+.custom-file-control {
+  display: block;
+  overflow: hidden;
+  width: 100%;
+  padding-right: 6px;
+  padding-left: 6px;
+  white-space: nowrap;
+  text-overflow: ellipsis;
+  user-select: text;
+}
+
+.package-list-item .item {
+  overflow: hidden;
+  text-overflow: ellipsis;
+}

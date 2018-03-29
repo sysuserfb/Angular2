@@ -1,0 +1,11 @@
+.avatar {
+    background-image: url("../../assets/avatar/1.jpg");
+    display: inline-block;
+    width: 44px;
+    height: 44px;
+    border-radius: 22px;
+    background-size: 44px 44px;
+    margin-left: 10px;
+    background-color: #ccc;
+   
+}

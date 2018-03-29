@@ -1,0 +1,32 @@
+
+<form nz-form [formGroup]="validateForm" class="login-form" (ngSubmit)="_submitForm()" style="margin: 100px auto;">
+      <div nz-form-item>
+        <div nz-form-control [nzValidateStatus]="getFormControl('userName')">
+          <nz-input formControlName="userName" [nzPlaceHolder]="'用户名/企业邮箱'" [nzSize]="'large'">
+            <ng-template #prefix>
+              <i class="anticon anticon-user"></i>
+            </ng-template>
+          </nz-input>
+          <div nz-form-explain *ngIf="getFormControl('userName').dirty&&getFormControl('userName').hasError('required')">用户名不能为空</div>
+        </div>
+      </div>
+      <div nz-form-item>
+        <div nz-form-control [nzValidateStatus]="getFormControl('password')">
+          <nz-input formControlName="password" [nzType]="'password'" [nzPlaceHolder]="'密码'" [nzSize]="'large'">
+            <ng-template #prefix>
+              <i class="anticon anticon-lock"></i>
+            </ng-template>
+          </nz-input>
+          <div nz-form-explain *ngIf="getFormControl('password').dirty&&getFormControl('password').hasError('required')">密码不能为空</div>
+        </div>
+      </div>
+      <div nz-form-item>
+        <div nz-form-control>
+          <button nz-button class="login-form-button" [nzType]="'primary'" [nzSize]="'large'"
+          [disabled]="!validateForm.valid||(logging=='登陆中...'?true:false)"
+          [nzLoading]="(logging=='登陆中...'?true:false)">
+          {{logging}}
+        </button>
+        </div>
+      </div>
+</form>

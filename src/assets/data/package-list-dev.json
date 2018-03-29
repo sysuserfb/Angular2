@@ -1,0 +1,58 @@
+{
+  "result": 0,
+  "msg": "资源包列表查询成功",
+  "packageList": [
+    {
+      "packageId": "E2EE17C71BED429F88A07E67F9433FB5",
+      "appId": "E2EE17C71BED429F88A07E67F9433FB5",
+      "versionId": "FA57164FAD2B4EE48EF32134CADFD3B6",
+      "resourceVersion": "1.1.0-alpha.2",
+      "description": "FFF",
+      "checkStatus": 0,
+      "resourceUrl": null,
+      "versionType": "DEV",
+      "operateTime": "2017-08-30T08:33:28.000Z",
+      "operatorInfo": {
+        "userId": "BE00B637C8C145E291AB7AFBF3AAE192",
+        "username": "yedb",
+        "name": "叶丹波"
+      }
+    },
+    {
+      "packageId": "E2EE17C71BED429F88A07E67F9433FB5",
+      "appId": "E2EE17C71BED429F88A07E67F9433FB5",
+      "versionId": "FA57164FAD2B4EE48EF32134CADFD3B6",
+      "resourceVersion": "1.1.0-alpha.2",
+      "description": "FFF",
+      "checkStatus": 0,
+      "resourceUrl": null,
+      "versionType": "DEV",
+      "operateTime": "2017-08-30T08:33:28.000Z",
+      "operatorInfo": {
+        "userId": "BE00B637C8C145E291AB7AFBF3AAE192",
+        "username": "yedb",
+        "name": "叶丹波"
+      }
+    },
+    {
+      "packageId": "E2EE17C71BED429F88A07E67F9433FB5",
+      "appId": "E2EE17C71BED429F88A07E67F9433FB5",
+      "versionId": "FA57164FAD2B4EE48EF32134CADFD3B6",
+      "resourceVersion": "1.1.0-alpha.2",
+      "description": "FFF",
+      "checkStatus": 0,
+      "resourceUrl": null,
+      "versionType": "DEV",
+      "operateTime": "2017-08-30T08:33:28.000Z",
+      "operatorInfo": {
+        "userId": "BE00B637C8C145E291AB7AFBF3AAE192",
+        "username": "yedb",
+        "name": "叶丹波"
+      }
+    }
+  ],
+  "itemsPerPage": 10,
+  "currentPage": 1,
+  "totalItems": 3,
+  "totalPages": 1
+}

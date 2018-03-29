@@ -1,0 +1,68 @@
+.mem-card{
+    width:100%;
+    margin:0px auto 10px auto;
+}
+.user-group{
+    max-width:1200px;
+    min-height: 200px;
+    margin: 50px auto; 
+}
+.group-head{
+     line-height: 2.5; 
+}
+ .avatar {
+    /* filter: grayscale(100%); */
+    display: inline-block;
+    width: 50px;
+    height: 50px;
+    border-radius: 30px;
+    background-size: 50px 50px;
+    background-color: #ccc;
+} 
+.modal-avatar{
+    display: inline-block;
+    width: 100px;
+    height: 100px;
+    border-radius: 50px;
+    background-size: 100px 100px;
+    margin:10px 25px;
+    background-color: #ccc;
+}
+.user-msg{
+    margin: 5px;
+    display: inline-block;
+    vertical-align: middle;
+}
+.user-msg-info{
+    margin: 5px;
+    display: inline-block;
+    vertical-align: middle;
+    font-size: 1.3em;
+}
+.user-msg-info div{
+    margin-top: 5px;
+}
+.user-msg p{
+    width: 150px;
+    white-space: nowrap;
+    overflow: hidden;
+    text-overflow: ellipsis;
+    margin: 0;
+    font-size: 1em;
+}
+.user-invalid{
+    opacity: 0.2;
+}
+.vertical-center-modal {
+    display: flex;
+    align-items: center;
+    justify-content: center;
+}
+.center-modal {
+    display: flex;
+    align-items: center;
+    justify-content: center;
+}
+:host ::ng-deep .vertical-center-modal .ant-modal {
+  top: 0;
+}

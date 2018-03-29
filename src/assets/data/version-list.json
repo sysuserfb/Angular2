@@ -1,0 +1,70 @@
+{
+  "result": 0,
+  "msg": "版本列表查询成功",
+  "versionList": [
+    {
+      "versionId": "021D5A8CB66D4C069F2A3171FDB081EB",
+      "appId": "46D1647F0BA64C9E8B5E0B7C97055F42",
+      "resourceVersion": "3.2.0",
+      "sysVersion": "0.0.0",
+      "appVersion": "0.0.0",
+      "resourceType": "",
+      "system": "",
+      "maxAlphaVersion": 0,
+      "maxBetaVersion": 2,
+      "isPublished": 1
+    },
+    {
+      "versionId": "0A82B087F5C148A9A70ED000F0DE07C5",
+      "appId": "46D1647F0BA64C9E8B5E0B7C97055F42",
+      "resourceVersion": "3.3.0",
+      "sysVersion": "2.0.0",
+      "appVersion": "2.0.0",
+      "resourceType": "RN",
+      "system": "IOS",
+      "maxAlphaVersion": 0,
+      "maxBetaVersion": 0,
+      "isPublished": 0
+    },
+    {
+      "versionId": "2061EF1E1081434BB2058B02ED2FD960",
+      "appId": "46D1647F0BA64C9E8B5E0B7C97055F42",
+      "resourceVersion": "3.1.0",
+      "sysVersion": "1.0.0",
+      "appVersion": "1.0.0",
+      "resourceType": "H5",
+      "system": "Android",
+      "maxAlphaVersion": 0,
+      "maxBetaVersion": 0,
+      "isPublished": 0
+    },
+    {
+      "versionId": "AD2334AF33BA41819FE0FFBCF1D1CFAE",
+      "appId": "46D1647F0BA64C9E8B5E0B7C97055F42",
+      "resourceVersion": "3.0.5",
+      "sysVersion": "3.2.5",
+      "appVersion": "3.3.0",
+      "resourceType": "RN",
+      "system": "Android",
+      "maxAlphaVersion": 2,
+      "maxBetaVersion": 3,
+      "isPublished": 1
+    },
+    {
+      "versionId": "BD39B0E4B48D420D800CED1081E63643",
+      "appId": "46D1647F0BA64C9E8B5E0B7C97055F42",
+      "resourceVersion": "3.3.1",
+      "sysVersion": "0.0.0",
+      "appVersion": "0.0.0",
+      "resourceType": "RN",
+      "system": "IOS",
+      "maxAlphaVersion": 0,
+      "maxBetaVersion": 0,
+      "isPublished": 0
+    }
+  ],
+  "itemsPerPage": 10,
+  "currentPage": 1,
+  "totalItems": 5,
+  "totalPages": 1
+}

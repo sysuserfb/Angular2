@@ -1,0 +1,26 @@
+{
+  "result": 0,
+  "msg": "资源包列表查询成功",
+  "packageList": [
+    {
+      "packageId": "310810E672D54EFA861C7725161E4584",
+      "appId": "310810E672D54EFA861C7725161E4584",
+      "versionId": "D9906B28F34B43EE922D509253F1E160",
+      "resourceVersion": "1.0.0",
+      "description": "清空数据库后测试",
+      "checkStatus": 1,
+      "resourceUrl": null,
+      "versionType": "PRO",
+      "operateTime": "2017-08-30T08:26:20.000Z",
+      "operatorInfo": {
+        "userId": "BE00B637C8C145E291AB7AFBF3AAE192",
+        "username": "yedb",
+        "name": "叶丹波"
+      }
+    }
+  ],
+  "itemsPerPage": 10,
+  "currentPage": 1,
+  "totalItems": 1,
+  "totalPages": 1
+}

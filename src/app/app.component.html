@@ -1,0 +1,43 @@
+<nz-root style="height: 100%" [nzExtraFontName]="'anticon'" [nzExtraFontUrl]="'/assets/fonts/iconfont'">
+  <nz-layout style="min-height: 100%">
+    <nz-header>
+      <h1 class="logo">OneKit 开放平台</h1>
+      <div *ngIf="ifApps&&loginFlag" class="appsInfo">
+        <nz-dropdown>
+          <button class="selectApp" nz-button nz-dropdown>
+              <span>{{curApp.appName}}</span><i class="anticon anticon-down" [ngClass]="{'notDropDown':!ifDropdown}"></i>
+          </button>
+          <ul nz-menu class="candidate-apps" nzVisible="ifDropdown">
+            <li nz-menu-item *ngFor="let app of apps">
+              <a [routerLink]="'/versions'" (click)="setApp(app.appId, app.appName)">
+                {{app.appName}}
+              </a>
+            </li>
+          </ul>
+        </nz-dropdown>
+      </div>
+      <div *ngIf="loginFlag" class="username" >
+        <nz-dropdown>
+          <a nz-dropdown class="ant-dropdown-link">
+              <span><i class="anticon anticon-user"></i>&nbsp;{{userName}}</span>
+              <i class="anticon anticon-down"></i>
+          </a>
+          <ul nz-menu>
+            <li nz-menu-item><a (click)="logout()">退出</a></li>
+          </ul>
+        </nz-dropdown>
+      </div>
+      <div nz-col [nzXs]="0" style="float: right;">
+      <ul nz-menu [nzMode]="'horizontal'" class="guide" style="line-height: 64px;color: #fff;background: transparent;">
+        <li nz-menu-item>SDK下载</li>
+        <li nz-menu-item>接入指南</li>
+      </ul>    
+      </div>
+    </nz-header>
+    <nz-content style="height: 100%;padding: 0 50px;">
+      <router-outlet></router-outlet>
+    </nz-content>
+    <nz-footer style="text-align: center;">OneKit 开放平台 ©2017 Powered By UED</nz-footer>
+    
+  </nz-layout>
+</nz-root>

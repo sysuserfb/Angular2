@@ -1,0 +1,43 @@
+<nz-layout >
+  <nz-sider style="min-height:800px;">
+    <ul nz-menu [nzMode]="inline" class="router-menu">
+      <li *ngFor="let route of routerLinks" [routerLink]="route.url"
+      nz-menu-item routerLinkActive="ant-menu-item-selected">
+       <i class="anticon" [ngClass]="route.iClass"></i>{{route.name}}
+      </li>
+       <!-- <li nz-menu-item routerLinkActive="ant-menu-item-selected"
+        routerLink="/versions">
+         <i class="anticon anticon-api"></i>版本管理 
+      </li>
+     
+      <li nz-menu-item routerLinkActive="ant-menu-item-selected" 
+        routerLink="/members">
+        <i class="anticon anticon-team"></i>成员管理 
+      </li>
+      <li nz-menu-item routerLinkActive="ant-menu-item-selected" 
+        routerLink="/apps">
+        <i class="anticon anticon-appstore-o"></i>产品管理
+      </li> -->
+      <li nz-menu-item routerLinkActive="ant-menu-item-selected"
+        routerLink="/profile">
+        <i class="anticon anticon-setting"></i>个人设置
+      </li>
+    
+    </ul>
+  </nz-sider>
+  <nz-content style="margin: 0 0 0 16px; height: 100%;">
+      <nz-breadcrumb style="margin:12px 0;">
+        <nz-breadcrumb-item routerLink="/versions" style="cursor: pointer;outline:none">首页</nz-breadcrumb-item>
+        <nz-breadcrumb-item>{{directory}}</nz-breadcrumb-item>
+      </nz-breadcrumb>
+      <nz-content style="background: #fff; height: 100%">
+          <router-outlet>
+            <nz-spin [nzTip]="'正在读取数据'" [nzSize]="'large'" *ngIf="_loading"
+            style="position: absolute; left:50%;z-index:10;"></nz-spin>
+          </router-outlet>
+      </nz-content>
+    
+  </nz-content>
+</nz-layout>
+
+

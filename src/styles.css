@@ -1,0 +1,43 @@
+/* You can add global styles to this file, and also import other style files */
+.ant-table-pagination, .ant-tabs-bar {
+  user-select: none;
+}
+
+.ant-spin-container {
+  /* height: 600px; */
+}
+
+.vertical-center-modal {
+  display: flex;
+  align-items: center;
+  justify-content: center;
+}
+
+.vertical-center-modal .ant-modal {
+  top: 0;
+  margin: 0;
+  padding: 0;
+}
+.ant-menu-item {
+  outline: none;
+}
+.ant-menu-item:visited {
+  outline: none;
+}
+.ant-menu-item:active {
+  outline: none;
+}
+
+.ant-menu-item-selected {
+  outline: none;
+}
+.guide li:hover {
+  color: white !important;
+}
+.selectApp:hover {
+  color: black !important;
+}
+
+body{
+  min-width:1200px;
+}

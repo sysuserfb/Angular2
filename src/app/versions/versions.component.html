@@ -1,0 +1,193 @@
+<!-- 上传弹窗 -->
+<nz-modal [nzWrapClassName]="'vertical-center-modal'"
+          [nzTitle]="'上传资源包'"
+          [nzContent]="uploadContent"
+          [nzFooter]="false"
+          [nzMaskClosable]="false"
+          [nzVisible]="_isVisibleUploadModal"
+          (nzOnCancel)="toggleUploadModal(false)">
+  <ng-template #uploadContent>
+    <form nz-form [nzType]="'horizontal'" [formGroup]="validateForm" class="upload-form">
+      <div nz-form-item nz-row>
+        <div nz-form-label nz-col [nzSpan]="6">
+          <label nz-form-item-required>资源包</label>
+        </div>
+        <div nz-form-control nz-col [nzSpan]="14">
+          <!-- accept="application/zip" -->
+          <input type="file" id="file-upload" style="position: absolute; width: 0; height: 0; opacity: 0;" ng2FileSelect [uploader]="uploader" (change)="selectedFileOnChanged()" required>
+          <button nz-button [nzType]="'dashed'" [nzSize]="'large'" style="width: 100%">
+            <i class="anticon anticon-upload"></i> <span>选择文件</span>
+            <label for="file-upload" class="upload-file-input"></label> </button>
+
+          <span class="custom-file-control" *ngIf="!uploader.queue.length">未选择文件(zip压缩包)</span>
+          <span class="custom-file-control" *ngIf="uploader.queue.length">
+            已选择文件: {{uploader.queue[uploader.queue.length-1].file.name}}
+          </span>
+        </div>
+      </div>
+
+      <div nz-form-item nz-row>
+        <div nz-form-label nz-col [nzSpan]="6">
+          <label nz-form-item-required>资源包版本</label>
+        </div>
+        <div nz-form-control nz-col [nzSpan]="14">
+          <nz-select formControlName="versionId" [(ngModel)]="_uploadedPackageInfo.versionId" [nzPlaceHolder]="'请选择资源包版本'" [nzNotFoundContent]="'暂无版本'" (nzOpenChange)="selectedVersionOnChanged($event)" [nzSize]="'large'">
+            <nz-option *ngFor="let item of _packageVersionsList; index as index" [nzLabel]="item.resourceVersion" [nzValue]="item.versionId"></nz-option>
+          </nz-select>
+        </div>
+      </div>
+
+      <div nz-form-item nz-row style="padding-left: 10px">
+        <div nz-form-label nz-col [nzSpan]="6">
+          <label nz-form-item>客户端版本</label>
+        </div>
+        <div nz-form-control nz-col [nzSpan]="14">
+          {{_selectedVersionItem.appVersion}}
+        </div>
+      </div>
+
+      <div nz-form-item nz-row style="padding-left: 10px">
+        <div nz-form-label nz-col [nzSpan]="6">
+          <label nz-form-item>投放平台</label>
+        </div>
+        <div nz-form-control nz-col [nzSpan]="14">
+          {{_selectedVersionItem.system}}
+        </div>
+      </div>
+
+      <div nz-form-item nz-row style="padding-left: 10px">
+        <div nz-form-label nz-col [nzSpan]="6">
+          <label nz-form-item>系统版本</label>
+        </div>
+        <div nz-form-control nz-col [nzSpan]="14">
+          {{_selectedVersionItem.sysVersion}}
+        </div>
+      </div>
+
+      <div nz-form-item nz-row style="padding-left: 10px">
+        <div nz-form-label nz-col [nzSpan]="6">
+          <label nz-form-item>资源包类型</label>
+        </div>
+        <div nz-form-control nz-col [nzSpan]="14">
+          {{_selectedVersionItem.resourceType}}
+        </div>
+      </div>
+
+      <div nz-form-item nz-row>
+        <div nz-form-label nz-col [nzSpan]="6">
+          <label nz-form-item>描述</label>
+        </div>
+        <div nz-form-control nz-col [nzSpan]="14">
+          <nz-input formControlName="description" [(ngModel)]="_uploadedPackageInfo.description" [nzType]="'textarea'" [nzRows]="2" [nzPlaceHolder]="'写点描述'" [nzSize]="'large'"></nz-input>
+        </div>
+      </div>
+
+      <div nz-form-item nz-row>
+        <div nz-form-control nz-col [nzOffset]="6" [nzSpan]="14" style="text-align: right;">
+          <button nz-button [nzType]="'primary'" [nzSize]="'large'" [nzLoading]="_uploadConfirmLoading" [disabled]="!validateForm.valid || !uploader.queue.length" (click)="handleUploadSubmit()">提交</button>
+        </div>
+      </div>
+    </form>
+  </ng-template>
+</nz-modal>
+
+
+<!-- 资源包操作弹窗 -->
+<nz-modal [nzWrapClassName]="'vertical-center-modal'"
+          [nzTitle]="'资源包操作'"
+          [nzContent]="packageManageContent"
+          [nzFooter]="packageManageFooter"
+          [nzMaskClosable]="false"
+          [nzVisible]="_isVisiblePackageManageModal"
+          (nzOnCancel)="_isVisiblePackageManageModal = false">
+  <ng-template #packageManageContent>
+    <div>{{_packageManageModalData.question}}</div>
+  </ng-template>
+
+  <ng-template #packageManageFooter>
+    <button nz-button [nzType]="'default'" [nzSize]="'large'" [nzLoading]="_packageManageModalData.cancelButtonLoading" (click)="packageManageModalHandleCancel()">{{_packageManageModalData.cancelText}}</button>
+    <button nz-button [nzType]="'primary'" [nzSize]="'large'" [nzLoading]="_packageManageModalData.okButtonLoading" (click)="packageManageModalHandleOk()">{{_packageManageModalData.okText}}</button>
+  </ng-template>
+</nz-modal>
+
+
+<!-- 版本列表 -->
+<nz-tabset [nzAnimated]="true"
+           [(nzSelectedIndex)]="_selectedTabIndex"
+           *ngIf="_packageList.length">
+  <ng-template #nzTabBarExtraContent>
+    <button class="upload" style="margin-top: 2px; margin-right: 16px;" nz-button [nzType]="'primary'" (click)="toggleUploadModal(true)">
+      <i class="anticon anticon-upload"></i> <span>上传资源包</span> </button>
+  </ng-template>
+
+  <nz-tab *ngFor="let type of _packageList; index as index1">
+    <ng-template #nzTabHeading>{{type.name}}</ng-template>
+
+    <!-- 开发版 -->
+    <nz-table #nzTable
+              [nzAjaxData]="type.packageList"
+              [nzTotal]="type.totalItems"
+              [nzPageSize]="type.itemsPerPage"
+              [(nzPageIndex)]="_pageArgs[index1]"
+              [nzCustomNoResult]="true"
+              [nzShowTotal]="true"
+              (nzPageIndexChangeClick)="getPackageListByPagination(index1)">
+      <thead nz-thead>
+        <tr>
+          <th nz-th width="15%"><span>版本号</span></th>
+
+          <th nz-th width="35%"><span>描述</span></th>
+
+          <!-- td-3 开始 -->
+          <th nz-th width="10%" *ngIf="index1 === 0"><span>上传人</span></th>
+          <th nz-th width="10%" *ngIf="index1 === 1"><span>操作人</span></th>
+          <th nz-th width="10%" *ngIf="index1 === 2"><span>发布人</span></th>
+          <!-- td-3 结束 -->
+
+          <!-- td-4 开始 -->
+          <th nz-th width="15%" *ngIf="index1 === 0"><span>上传时间</span></th>
+          <th nz-th width="15%" *ngIf="index1 === 1"><span>操作时间</span></th>
+          <th nz-th width="15%" *ngIf="index1 === 2"><span>发布时间</span></th>
+          <!-- td-4 结束 -->
+
+          <th nz-th width="15%"><span>操作</span></th>
+        </tr>
+      </thead>
+      <tbody nz-tbody>
+        <tr nz-tbody-tr class="package-list-item" *ngFor="let item of nzTable.data; index as index2">
+          <td nz-td class="item package-version">
+            {{item.resourceVersion}}
+          </td>
+
+          <td nz-td class="item">{{item.description}}</td>
+
+          <!-- td-3 开始 -->
+          <td nz-td class="item">
+            {{item.operatorInfo ? (item.operatorInfo.name ? item.operatorInfo.name : item.operatorInfo.username) : ''}}
+          </td>
+          <!-- td-3 结束 -->
+
+          <!-- td-4 开始 -->
+          <td nz-td class="item">
+            {{item.operateTime | date:'yyyy-MM-dd HH:mm:ss'}}
+          </td>
+          <!-- td-4 结束 -->
+
+          <td nz-td class="item package-editor">
+            <button nz-popconfirm nz-button [nzSize]="'small'" [nzType]="'primary'" (click)="getPackageInfo(item.packageId)">查看详情</button>
+
+            <button nz-popconfirm nz-button [nzSize]="'small'" [nzType]="'primary'" *ngIf="index1 === 0" (click)="managePackage(0, index2, 'changeStatus', 1)">提交体验</button>
+
+            <button nz-popconfirm nz-button [nzSize]="'small'" [nzType]="'danger'" *ngIf="false" (click)="managePackage(0, index2, 'delete')">删除</button>
+
+            <button nz-popconfirm nz-button [nzSize]="'small'" [nzType]="'primary'" *ngIf="index1 === 1 && item.checkStatus === 1" (click)="managePackage(1, index2, 'changeStatus', 2)">提交上线</button>
+
+            <button nz-popconfirm nz-button [nzSize]="'small'" [nzType]="'primary'" *ngIf="index1 === 1 && item.checkStatus !== 1" (click)="managePackage(1, index2, 'approve', 2)">{{item.checkStatus
+              === 0 ? '审核' : '继续审核'}}</button>
+          </td>
+        </tr>
+      </tbody>
+      <div noResult>{{index1 === 0 ? '没有开发版资源包' : index1 === 1 ? '没有体验版资源包' : '没有线上版资源包'}}</div>
+    </nz-table>
+  </nz-tab>
+</nz-tabset>

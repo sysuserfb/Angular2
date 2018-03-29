@@ -1,0 +1,214 @@
+<div class="container" style="overflow:auto;padding:10px;">
+    <div style="overflow:hidden;margin:10px 8px"><button nz-button [nzType]="'primary'" style="float:right;" (click)="showAddModal(contentAdd,footer)">
+            添加产品</button>
+    </div>
+    <nz-alert *ngIf="appLen===0" [nzType]="'warning'" [nzMessage]="'暂未有产品数据，请先增加产品'" style="text-align:center;"></nz-alert>
+    <div *ngFor="let productInfo of AppList" style="margin-bottom:10px">
+        <nz-table #nzTable [nzDataSource]="productInfo.productInfo" [nzBordered]="true" [nzShowTitle]="true"
+            [nzIsPagination]="false">
+            <div nz-table-title><span style="font-size:medium">{{productInfo.appName}}</span>
+                <span style="float:right;position:relative;top:-4px">
+            <button nz-button [nzType]="'primary'" (click)="showVersionModal(productInfo,contentVersion,footer)">
+                    <span>新建版本</span>
+                </button>
+                <button nz-button [nzType]="'primary'" (click)="showRenameModal(productInfo,contentChange,footer)">
+                    <span>修改名称</span>
+                </button>
+                <button nz-button [nzType]="'danger'" (click)="showConfirm(productInfo.appId)" *ngIf="isSAdmin">
+                    <span>删除产品</span>
+                </button>
+                </span>
+            </div>
+            <colgroup>
+                <col width="25%">
+            </colgroup>
+            <tbody nz-tbody *ngFor="let product of nzTable.data">
+                <tr nz-tbody-tr>
+                    <td nz-td>
+                        <pre>产品ID</pre>
+                    </td>
+                    <td nz-td>{{product.appId}}</td>
+                </tr>
+                <tr nz-tbody-tr>
+                    <td nz-td>产品管理者</td>
+                    <td nz-td>
+                        <!-- <div nz-row [nzType]="'flex'" [nzAlign]="'middle'" [nzJustify]="'space-between'"> -->
+                            <div class="cAdmin">
+                                <img class="avatar" src="../../assets/avatar/{{product.managerInfo.avatarId}}.jpg">
+                                <!-- <div nz-col class="user-msg" [nzSpan]="14"> -->
+                                <span>{{product.managerInfo.name}}</span>
+                            </div>
+                            <!-- <span nz-col [nzSpan]=10>{{product.managerInfo.name}}</span> -->
+                            <div class="cAdmin">
+                                <button nz-button [nzType]="'primary'" style="position:relative;float:right" (click)="showChangeModal(product,contentAdmin,footer)">
+                            <span>更换</span>
+                        </button>
+                            </div>
+                        <!-- </div> -->
+                    </td>
+                </tr>
+                <tr nz-tbody-tr>
+                    <td nz-td>公钥</td>
+                    <td nz-td>
+                        <pre>{{product.publicKey}}</pre>
+                    </td>
+                </tr>
+                <tr nz-tbody-tr>
+                    <td nz-td>AppSecret</td>
+                    <td nz-td>
+                        <pre>{{product.appSecret}}</pre>
+                    </td>
+                </tr>
+                <tr nz-tbody-tr>
+                    <td nz-td>版本号</td>
+                    <td>
+                        <nz-tooltip [nzTitle]="'版本详情'" *ngFor="let version of product.versionList">
+                            <button nz-button nz-tooltip [ngClass]="{verSpan:!version.isPublished,verSpanPublish:version.isPublished}">{{version.resourceVersion}}</button>
+                            <ng-template #nzTemplate>
+                                <div>
+                                    <p>资源包版本号：{{version.resourceVersion}}</p>
+                                    <p>客户端最低版本号：{{version.appVersion}}</p>
+                                    <p>操作系统最低版本号：{{version.sysVersion}}</p>
+                                    <p>平台：{{version.system}}</p>
+                                    <p>类型：{{version.resourceType}}</p>
+                                </div>
+                            </ng-template>
+                        </nz-tooltip>
+                    </td>
+                </tr>
+            </tbody>
+        </nz-table>
+    </div>
+</div>
+<ng-template #footer>
+    <div>
+        <button nz-button [nzType]="'primary'" [nzSize]="'large'" (click)="handleOk($event)" [disabled]="!_isDisable">
+                确定
+              </button>
+        <button nz-button [nzType]="'default'" [nzSize]="'large'" (click)="handleCancel($event)">
+                    取消
+                  </button>
+    </div>
+</ng-template>
+<ng-template #contentAdmin>
+    <form nz-form [formGroup]="adminForm" class="add-form">
+        <div nz-row>
+            <div nz-form-label nz-col [nzSpan]="6" nz-form-item-required>
+                <label>姓名</label>
+            </div>
+            <div nz-form-label nz-col [nzSpan]="14">
+                <nz-select nzPlaceHolder="请输入姓名" [nzSize]="size" [nzShowSearch]="true" formControlName="admin">
+                    <nz-option *ngFor="let option of userList" [nzLabel]="option.label" [nzValue]="option.value" [nzDisabled]="option.disabled">
+                    </nz-option>
+                </nz-select>
+            </div>
+        </div>
+    </form>
+</ng-template>
+<ng-template #contentChange>
+    <form nz-form [formGroup]="changeForm" class="add-form">
+        <div nz-form-item nz-row>
+            <div nz-form-label nz-col [nzSpan]="6" nz-form-item-required>
+                <label>新名称</label>
+            </div>
+            <div nz-form-control nz-col [nzSpan]="14" (keyup)="isDisable(changeForm)" [nzValidateStatus]="changeForm.controls.Name">
+                <nz-input [nzPlaceHolder]="'请输入产品名称'" formControlName="Name"></nz-input>
+                <div nz-form-explain *ngIf="changeForm.controls.Name.dirty&&changeForm.controls.Name.hasError('required')">产品名称不能为空!</div>
+            </div>
+        </div>
+    </form>
+</ng-template>
+<ng-template #contentAdd>
+    <form nz-form [formGroup]="addForm" class="add-form">
+        <div nz-form-item nz-row>
+            <div nz-form-label nz-col [nzSpan]="6" nz-form-item-required>
+                <label>名称</label>
+            </div>
+            <div nz-form-control nz-col [nzSpan]="14" (keyup)="isDisable(addForm)" [nzValidateStatus]="addForm.controls.Name">
+                <nz-input formControlName="Name" [nzPlaceHolder]="'请输入产品名称'" [nzSize]="'large'" (nzBlur)="isDisable(addForm)">
+                </nz-input>
+                <div nz-form-explain *ngIf="addForm.controls.Name.dirty&&addForm.controls.Name.hasError('required')">产品名称不能为空!</div>
+            </div>
+        </div>
+        <div nz-form-item nz-row>
+            <div nz-form-label nz-col [nzSpan]="6" nz-form-item-required>
+                <label>管理员</label>
+            </div>
+            <div nz-form-control nz-col [nzSpan]="14" [nzValidateStatus]="addForm.controls.admin">
+                <nz-select style="width: 100%;" formControlName="admin" nzPlaceHolder="请选择产品管理员" [nzSize]="large"
+                    [nzShowSearch]="true" (nzOpenChange)="isDisable(addForm)">
+                    <nz-option *ngFor="let option of userList" [nzLabel]="option.label" [nzValue]="option.value">
+                    </nz-option>
+                </nz-select>
+                <div nz-form-explain *ngIf="addForm.controls.admin.dirty&&addForm.controls.admin.hasError('required')">管理员不能为空!</div>
+            </div>
+        </div>
+    </form>
+</ng-template>
+<ng-template #contentVersion>
+    <form nz-form [formGroup]="versionForm" class="versionForm">
+        <div nz-row nz-form-item [nzType]="'flex'" [nzAlign]="'middle'">
+            <!-- <label>资源包版本号</label> -->
+            <div nz-form-label nz-col [nzSm]="8" [nzXs]="24">
+                <label>资源包版本号 </label>
+            </div>
+            <div class="input-number" nz-col [nzSm]="10" [nzXs]="24">
+                <!-- <nz-input type="text" [(ngModel)]="version.resourceVersion" nzPlaceHolder="请输入资源包版本号"></nz-input> -->
+                <nz-input-number [(ngModel)]="resourceVersion[0]" [nzMin]="0" [nzMax]="100" [nzStep]="1" formControlName="resourceVersion0"></nz-input-number>
+                <nz-input-number [(ngModel)]="resourceVersion[1]" [nzMin]="0" [nzMax]="100" [nzStep]="1" formControlName="resourceVersion1"></nz-input-number>
+                <nz-input-number [(ngModel)]="resourceVersion[2]" [nzMin]="0" [nzMax]="100" [nzStep]="1" formControlName="resourceVersion2"></nz-input-number>
+            </div>
+            v{{resourceVersion.join('.')}}
+        </div>
+        <div nz-row nz-form-item [nzType]="'flex'" [nzAlign]="'middle'">
+            <div nz-form-label nz-col [nzSm]="8" [nzXs]="24">
+                <label>APP版本号</label>
+            </div>
+            <!-- <nz-input type="text"  [(ngModel)]="version.appVersion" nzPlaceHolder="请输入客户端最低版本号"></nz-input> -->
+            <div class="input-number" nz-col [nzSm]="10" [nzXs]="24">
+                <nz-input-number [(ngModel)]="appVersion[0]" [nzMin]="0" [nzMax]="100" [nzStep]="1" formControlName="appVersion0"></nz-input-number>
+                <nz-input-number [(ngModel)]="appVersion[1]" [nzMin]="0" [nzMax]="100" [nzStep]="1" formControlName="appVersion1"></nz-input-number>
+                <nz-input-number [(ngModel)]="appVersion[2]" [nzMin]="0" [nzMax]="100" [nzStep]="1" formControlName="appVersion2"></nz-input-number>
+            </div>
+            v{{appVersion.join('.')}}
+        </div>
+        <div nz-row nz-form-item [nzType]="'flex'" [nzAlign]="'middle'">
+            <div nz-form-label nz-col [nzSm]="8" [nzXs]="24">
+                <label>OS版本号</label>
+            </div>
+            <!-- <nz-input type="text"  [(ngModel)]="version.sysVersion" nzPlaceHolder="请输入操作系统最低版本号"></nz-input> -->
+            <div class="input-number" nz-col [nzSm]="10" [nzXs]="24">
+                <nz-input-number [(ngModel)]="sysVersion[0]" [nzMin]="0" [nzMax]="100" [nzStep]="1" formControlName="sysVersion0"></nz-input-number>
+                <nz-input-number [(ngModel)]="sysVersion[1]" [nzMin]="0" [nzMax]="100" [nzStep]="1" formControlName="sysVersion1"></nz-input-number>
+                <nz-input-number [(ngModel)]="sysVersion[2]" [nzMin]="0" [nzMax]="100" [nzStep]="1" formControlName="sysVersion2"></nz-input-number>
+            </div>
+            v{{sysVersion.join('.')}}
+        </div>
+        <div nz-row nz-form-item [nzType]="'flex'" [nzAlign]="'middle'">
+            <div nz-form-label nz-col [nzSm]="8" [nzXs]="24">
+                <label>平台</label>
+            </div>
+            <nz-radio-group [(ngModel)]="version.system" formControlName="system">
+                <label nz-radio [nzValue]="'Android'">
+                    <span>Android</span>
+                </label>
+                <label nz-radio [nzValue]="'IOS'">
+                    <span>IOS</span>
+                </label>
+            </nz-radio-group>
+        </div>
+        <div nz-row nz-form-item [nzType]="'flex'" [nzAlign]="'middle'">
+            <div nz-form-label nz-col [nzSm]="8" [nzXs]="24">
+                <label>类型</label>
+            </div>
+            <nz-radio-group [(ngModel)]="version.resourceType" formControlName="resourceType">
+                <label nz-radio [nzValue]="'H5'">
+                    <span>H5</span>
+                </label>
+                <label nz-radio [nzValue]="'RN'">
+                    <span>RN</span>
+                </label>
+            </nz-radio-group>
+        </div>
+    </form>
+</ng-template>
